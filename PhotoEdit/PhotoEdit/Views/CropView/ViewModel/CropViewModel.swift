@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class CropViewModel: ObservableObject {
+final class CropViewModel: ObservableObject {
     
     // MARK: - Properties
     

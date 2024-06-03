@@ -8,7 +8,20 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @StateObject private var viewModel = SettingsViewModel()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            List(viewModel.cells) { cell in
+                SettingCell(cellModel: cell)
+            }
+            .navigationTitle("Settings")
+            .alert(isPresented: $viewModel.showAboutAlert) {
+                Alert(title: Text("About App"),
+                      message: Text("Andrey Bobr"),
+                      dismissButton: .default(Text("OK")))
+            }
+        }
     }
 }
