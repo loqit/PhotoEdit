@@ -1,0 +1,20 @@
+# Thumbnails
+.DS_Store
+._*
+
+## User settings
+xcuserdata/
+
+.build/
+
+# CocoaPods
+Podfile.lock
+Pods/
+*.xcworkspace
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
