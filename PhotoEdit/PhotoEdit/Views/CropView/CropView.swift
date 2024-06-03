@@ -42,30 +42,8 @@ struct CropView: View {
         )
         
         VStack {
-            ZStack {
-                mainImage
-                    .opacity(0.5)
-                    .overlay {
-                        GeometryReader { geometry in
-                            Color.clear
-                                .onAppear {
-                                    viewModel.imageSizeInView = geometry.size
-                                }
-                        }
-                    }
-                mainImage
-                    .mask {
-                        Rectangle()
-                            .frame(width: viewModel.maskSize * 2, height: viewModel.maskSize * 2)
-                    }
-                    .overlay {
-                        Rectangle()
-                            .stroke(lineWidth: 2)
-                            .foregroundStyle(.yellow)
-                            .frame(width: viewModel.maskSize * 2, height: viewModel.maskSize * 2)
-                    }
-            }
-            .gesture(combinedGesture)
+            imageBlock
+                .gesture(combinedGesture)
             HStack {
                 Button {
                     cropImage()
@@ -75,7 +53,6 @@ struct CropView: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .clipShape(Capsule())
-                        .padding(.top, 50)
                 }
                 Button {
                     applyMonochromeFilter()
@@ -85,9 +62,18 @@ struct CropView: View {
                         .background(Color.black)
                         .foregroundColor(.white)
                         .clipShape(Capsule())
-                        .padding(.top, 50)
+                }
+                Button {
+                    undoLastAction()
+                } label: {
+                    Text("Undo")
+                        .padding(.all, 10)
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
                 }
             }
+            .padding(.top, 50)
             HStack {
                 Button {
                     showingImagePicker = true
@@ -97,7 +83,7 @@ struct CropView: View {
                         .background(Color.orange)
                         .foregroundColor(.white)
                         .clipShape(Capsule())
-                }        
+                }
                 .sheet(isPresented: $showingImagePicker) {
                     ImagePicker(image: $image)
                 }
@@ -117,6 +103,32 @@ struct CropView: View {
                           dismissButton: .default(Text("OK")))
                 }
             }
+        }
+    }
+    
+    private var imageBlock: some View {
+        ZStack {
+            mainImage
+                .opacity(0.5)
+                .overlay {
+                    GeometryReader { geometry in
+                        Color.clear
+                            .onAppear {
+                                viewModel.imageSizeInView = geometry.size
+                            }
+                    }
+                }
+            mainImage
+                .mask {
+                    Rectangle()
+                        .frame(width: viewModel.maskSize * 2, height: viewModel.maskSize * 2)
+                }
+                .overlay {
+                    Rectangle()
+                        .stroke(lineWidth: 2)
+                        .foregroundStyle(.yellow)
+                        .frame(width: viewModel.maskSize * 2, height: viewModel.maskSize * 2)
+                }
         }
     }
     
@@ -141,6 +153,7 @@ struct CropView: View {
             return
         }
         
+        viewModel.backupImage = image
         image = croppedImage
     }
     
@@ -149,7 +162,13 @@ struct CropView: View {
             return
         }
         
+        viewModel.backupImage = image
         image = modifiedImage
+    }
+    
+    private func undoLastAction() {
+        guard let prevImage = viewModel.backupImage else { return }
+        image = prevImage
     }
     
     private func saveImage() {
@@ -163,19 +182,5 @@ struct CropView: View {
             showSaveAlert = true
         }
         imageSaver.writeToPhotoAlbum(image: image)
-    }
-}
-
-extension UIImage{
-    var grayscaled: UIImage?{
-        let ciImage = CIImage(image: self)
-        let grayscale = ciImage?.applyingFilter("CIColorControls",
-                                                parameters: [ kCIInputSaturationKey: 0.0 ])
-        if let gray = grayscale{
-            return UIImage(ciImage: gray)
-        }
-        else{
-            return nil
-        }
     }
 }

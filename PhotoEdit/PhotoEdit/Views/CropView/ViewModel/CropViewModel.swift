@@ -18,6 +18,8 @@ final class CropViewModel: ObservableObject {
     @Published var lastOffset: CGSize = .zero
     @Published var angle: Angle = .zero
     
+    var backupImage: UIImage?
+    
     var imageSizeInView: CGSize = .zero {
         didSet {
             maskSize = min(maskSize, min(imageSizeInView.width, imageSizeInView.height) / 2)
