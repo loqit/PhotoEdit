@@ -60,14 +60,14 @@ class CropViewModel: ObservableObject {
         let cropRectY = (centerInOriginalImage.y - cropRadiusInOriginalImage) - (offsetY / scale)
         let cropRectCoordinate = CGPoint(x: cropRectX, y: cropRectY)
         let cropRectDimension = cropRadiusInOriginalImage * 2
-
+        
         let cropRect = CGRect(
             x: cropRectCoordinate.x,
             y: cropRectCoordinate.y,
             width: cropRectDimension,
             height: cropRectDimension
         )
-
+        
         return cropRect
     }
     

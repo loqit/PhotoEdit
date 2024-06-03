@@ -11,7 +11,7 @@ import SwiftUI
 struct PhotoEditApp: App {
     var body: some Scene {
         WindowGroup {
-            CropView()
+            TabBarView()
         }
     }
 }

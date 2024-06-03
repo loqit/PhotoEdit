@@ -12,6 +12,8 @@
 		646FFF442C0A15C5002E1313 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 646FFF432C0A15C5002E1313 /* Preview Assets.xcassets */; };
 		646FFF742C0C7F3E002E1313 /* CropViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FFF732C0C7F3E002E1313 /* CropViewModel.swift */; };
 		646FFF782C0E02B2002E1313 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FFF772C0E02B2002E1313 /* CropView.swift */; };
+		646FFF7B2C0E1C21002E1313 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FFF7A2C0E1C21002E1313 /* TabBarView.swift */; };
+		646FFF7E2C0E1CCA002E1313 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 646FFF7D2C0E1CCA002E1313 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		646FFF432C0A15C5002E1313 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		646FFF732C0C7F3E002E1313 /* CropViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewModel.swift; sourceTree = "<group>"; };
 		646FFF772C0E02B2002E1313 /* CropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+		646FFF7A2C0E1C21002E1313 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		646FFF7D2C0E1CCA002E1313 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,8 @@
 		646FFF752C0E0268002E1313 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				646FFF7C2C0E1CBA002E1313 /* Settings */,
+				646FFF792C0E1C10002E1313 /* TabBar */,
 				646FFF762C0E026F002E1313 /* CropView */,
 			);
 			path = Views;
@@ -92,6 +98,22 @@
 				646FFF772C0E02B2002E1313 /* CropView.swift */,
 			);
 			path = CropView;
+			sourceTree = "<group>";
+		};
+		646FFF792C0E1C10002E1313 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				646FFF7A2C0E1C21002E1313 /* TabBarView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		646FFF7C2C0E1CBA002E1313 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				646FFF7D2C0E1CCA002E1313 /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,8 +186,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				646FFF7E2C0E1CCA002E1313 /* SettingsView.swift in Sources */,
 				646FFF3D2C0A15C2002E1313 /* PhotoEditApp.swift in Sources */,
 				646FFF742C0C7F3E002E1313 /* CropViewModel.swift in Sources */,
+				646FFF7B2C0E1C21002E1313 /* TabBarView.swift in Sources */,
 				646FFF782C0E02B2002E1313 /* CropView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
