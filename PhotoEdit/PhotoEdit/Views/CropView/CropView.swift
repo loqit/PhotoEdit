@@ -66,15 +66,27 @@ struct CropView: View {
                     }
             }
             .gesture(combinedGesture)
-            Button {
-                cropImage()
-            } label: {
-                Text("Crop Image")
-                    .padding(.all, 10)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .clipShape(Capsule())
-                    .padding(.top, 50)
+            HStack {
+                Button {
+                    cropImage()
+                } label: {
+                    Text("Crop Image")
+                        .padding(.all, 10)
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .padding(.top, 50)
+                }
+                Button {
+                    applyMonochromeFilter()
+                } label: {
+                    Text("Apply Filter")
+                        .padding(.all, 10)
+                        .background(Color.black)
+                        .foregroundColor(.white)
+                        .clipShape(Capsule())
+                        .padding(.top, 50)
+                }
             }
             HStack {
                 Button {
@@ -125,8 +137,19 @@ struct CropView: View {
         if let rotatedImage = viewModel.rotate(editableImage, viewModel.angle) {
             editableImage = rotatedImage
         }
+        guard let croppedImage = viewModel.crop(image: editableImage) else {
+            return
+        }
         
-        image = viewModel.crop(image: editableImage)!
+        image = croppedImage
+    }
+    
+    private func applyMonochromeFilter() {
+        guard let modifiedImage = viewModel.applyMonochromeFilter(to: image) else {
+            return
+        }
+        
+        image = modifiedImage
     }
     
     private func saveImage() {
@@ -140,5 +163,19 @@ struct CropView: View {
             showSaveAlert = true
         }
         imageSaver.writeToPhotoAlbum(image: image)
+    }
+}
+
+extension UIImage{
+    var grayscaled: UIImage?{
+        let ciImage = CIImage(image: self)
+        let grayscale = ciImage?.applyingFilter("CIColorControls",
+                                                parameters: [ kCIInputSaturationKey: 0.0 ])
+        if let gray = grayscale{
+            return UIImage(ciImage: gray)
+        }
+        else{
+            return nil
+        }
     }
 }

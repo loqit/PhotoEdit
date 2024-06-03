@@ -91,6 +91,23 @@ final class CropViewModel: ObservableObject {
         
         return UIImage(cgImage: result)
     }
+    
+    func applyMonochromeFilter(to image: UIImage) -> UIImage? {
+        guard let currentCGImage = image.cgImage else { return nil }
+        let currentCIImage = CIImage(cgImage: currentCGImage)
+
+        let filter = CIFilter(name: "CIColorMonochrome")
+        filter?.setValue(currentCIImage, forKey: "inputImage")
+        filter?.setValue(CIColor(red: 0.7, green: 0.7, blue: 0.7), forKey: "inputColor")
+        filter?.setValue(1.0, forKey: "inputIntensity")
+        
+        guard let outputImage = filter?.outputImage else { return nil }
+        
+        let context = CIContext()
+        guard let cgimg = context.createCGImage(outputImage, from: outputImage.extent) else { return nil }
+        
+        return UIImage(cgImage: cgimg)
+    }
 }
 
 private extension UIImage {
