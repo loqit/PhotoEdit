@@ -18,7 +18,7 @@ final class CropViewModel: ObservableObject {
     @Published var lastOffset: CGSize = .zero
     @Published var angle: Angle = .zero
     
-    var backupImage: UIImage?
+    var backupImages: [UIImage] = []
     
     var imageSizeInView: CGSize = .zero {
         didSet {

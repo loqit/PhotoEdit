@@ -153,7 +153,7 @@ struct CropView: View {
             return
         }
         
-        viewModel.backupImage = image
+        viewModel.backupImages.append(image)
         image = croppedImage
     }
     
@@ -162,12 +162,13 @@ struct CropView: View {
             return
         }
         
-        viewModel.backupImage = image
+        viewModel.backupImages.append(image)
         image = modifiedImage
     }
     
     private func undoLastAction() {
-        guard let prevImage = viewModel.backupImage else { return }
+        guard !viewModel.backupImages.isEmpty,
+              let prevImage = viewModel.backupImages.popLast() else { return }
         image = prevImage
     }
     
